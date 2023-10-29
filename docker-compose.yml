@@ -25,5 +25,7 @@ services:
     restart: always
     environment:
       - POSTGRES_PASSWORD=siema
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=project
     ports:
       - "5432:5432"
