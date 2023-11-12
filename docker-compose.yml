@@ -11,7 +11,6 @@ services:
       - .:/app/
     links:
       - php
-
   php:
     build:
       context: .
@@ -22,10 +21,14 @@ services:
     build: 
       context: .
       dockerfile: docker/postgres/Dockerfile
-    restart: always
+    volumes:
+      - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - postgres_data:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=siema
       - POSTGRES_USER=postgres
-      - POSTGRES_DB=project
+      - POSTGRES_DB=postgres
     ports:
       - "5432:5432"
+volumes:
+  postgres_data:
