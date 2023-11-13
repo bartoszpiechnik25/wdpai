@@ -1,213 +1,242 @@
-  html {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-  }
+html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
 
-  body {
-      background: linear-gradient(180deg, #EEE9DA 0%, #EEE9DA 32.4%, #BDCDD6 65.73%);
-      margin: 0;
-      width: 100%;
-      height: 100%;
-  }
+body {
+    background: linear-gradient(180deg, #EEE9DA 0%, #EEE9DA 32.4%, #BDCDD6 65.73%);
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
 
-  .text {
-      font-family: "Roboto-Medium", Helvetica;
-  }
+.text {
+    font-family: "Roboto-Medium", Helvetica;
+}
 
-  .taskbar {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      background-color: #eee9da;
-      border-radius: 0px 0px 20px 20px;
-      box-shadow: 0px 4px 4px #00000040;
-      height: 7rem;
-      padding: 0.1%;
-      width: 100%;
-      position: relative;
-  }
+.taskbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #eee9da;
+    border-radius: 0px 0px 20px 20px;
+    box-shadow: 0px 4px 4px #00000040;
+    height: 7rem;
+    padding: 0.1%;
+    width: 100%;
+    position: relative;
+}
 
-  .screenshot-from {
-      height: 80px;
-      left: 43px;
-      object-fit: cover;
-      position: absolute;
-      top: 13px;
-      width: 393px;
-  }
+.screenshot-from {
+    width: 20%;
+    height: 100%;
+    object-fit: cover;
+    padding-left: 3%;
+}
 
-  .text-wrapper {
-      color: #000000;
-      font-family: "Roboto-Medium", Helvetica;
-      font-size: 30px;
-      font-weight: 500;
-      height: 44px;
-      left: 867px;
-      letter-spacing: 3px;
-      line-height: normal;
-      position: absolute;
-      top: 42px;
-      width: 109px;
-  }
+.text-wrapper {
+    color: #000000;
+    font-family: "Roboto-Medium", Helvetica;
+    font-size: 30px;
+    font-weight: 500;
+    height: 44px;
+    left: 867px;
+    letter-spacing: 3px;
+    line-height: normal;
+    position: absolute;
+    top: 42px;
+    width: 109px;
+}
 
-  .icon {
-      height: 39px;
-      width: 39px;
-      margin-right: 10px;
-  }
+.icon {
+    height: 2rem;
+    width: 2rem;
+    /* margin-right: 1%; */
+    padding: 1%;
+}
 
-  .title-wrapper {
-      color: #000000;
-      font-family: "Roboto", Helvetica;
-      letter-spacing: 1.5px;
-      font-size: 120%;
-      position: relative;
-      text-align: left;
-      padding-top: 2%;
-      padding-bottom: 2%;
-      padding-left: 10%;
-  }
+.title-wrapper {
+    color: #000000;
+    font-family: "Roboto", Helvetica;
+    letter-spacing: 1.5px;
+    font-size: 120%;
+    /* position: relative; */
+    text-align: left;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    padding-left: 10%;
+    padding-right: 10%;
+    width: 80%;
+}
 
-  .search-bar {
-      background-color: #ffffff;
-      border-radius: 20px;
-      /* position: relative; */
-      height: 2.5rem;
-      width: 70%;
-      left: 10%;
-      right: 10%;
-      display: flex;
-      flex-direction: row;
-  }
+.search-bar {
+    background-color: #ffffff;
+    border-radius: 20px;
+    /* position: relative; */
+    height: 2.5rem;
+    width: 70%;
+    left: 10%;
+    right: 10%;
+    display: flex;
+    flex-direction: row;
+}
 
-  .search-bar::placeholder {
-      text-indent: 100px;
-  }
+.search-bar::placeholder {
+    text-indent: 100px;
+}
 
-  .search-bar-wrapper {
-      position: relative;
-      left: 10%;
-      right: 10%;
-      padding-bottom: 2%;
-  }
+.search-bar-wrapper {
+    position: relative;
+    width: 80%;
+    left: 10%;
+    padding-bottom: 2%;
+}
 
-  .grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-  }
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
 
-  .grid-item {
-      /* padding: 10px; */
-      margin-left: 10%;
-      margin-right: 10%;
-      text-align: center;
-  }
+.grid-item {
+    /* padding: 10px; */
+    margin-left: 10%;
+    margin-right: 10%;
+    text-align: center;
+}
 
-  .grid-item img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-  }
+.grid-item img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
 
-  .find-button {
-      background: linear-gradient(180deg, rgb(147, 191, 207) 28.12%, rgba(255, 147.16, 100.94, 0.74) 94.79%);
-      display: flex;
-      justify-content: center;
-      font-size: 20px;
-      border-radius: 20px;
-      height: 49px;
-      width: 235px;
-      overflow: hidden;
-      cursor: pointer;
-      font-family: "Roboto-Medium", Helvetica;
-      text-align: center;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-  }
+.find-button {
+    background: linear-gradient(180deg, rgb(147, 191, 207) 28.12%, rgba(255, 147.16, 100.94, 0.74) 94.79%);
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+    border-radius: 20px;
+    height: 49px;
+    width: 235px;
+    overflow: hidden;
+    cursor: pointer;
+    font-family: "Roboto-Medium", Helvetica;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
-  .button-icon {
-      width: 39px;
-      height: 39px;
-      margin-left: 10px;
-  }
+.button-icon {
+    width: 2rem;
+    height: 2rem;
+    margin-left: 3%;
+}
 
-  .buttons-container {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      left: 10%;
-      right: 10%;
-      top: 100%;
-      /* top: 329px; */
-      position: relative;
-      /* width: 100%; */
-  }
+.buttons-container {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2%;
+    left: 10%;
+    position: relative;
+}
 
-  button {
-      background-color: #d9d9d9;
-      font-family: "Roboto-Medium", Helvetica;
-      border-radius: 20px;
-      font-size: 14px;
-      height: 49px;
-      width: 145px;
-      align-items: center;
-      display: flex;
-      justify-content: center;
-      flex-grow: 1;
-  }
+button {
+    background-color: #d9d9d9;
+    font-family: "Roboto-Medium", Helvetica;
+    border-radius: 1rem;
+    border-color: #000000;
+    border-width: 1px;
+    font-size: 1rem;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-grow: 2;
+    transition: transform 0.2s ease-in-out;
+}
 
-  button img {
-      width: 18px;
-      height: 18px;
-      margin-left: 10px;
-  }
+button:active {
+    transform: scale(0.95);
+}
 
-  .button-text {
-      font-size: 17px;
-      text-align: center;
-  }
+button img {
+    width: 1rem;
+    height: 1rem;
+    margin-left: 5%;
+}
 
-  .recipe {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      width: 512px;
-      height: 275px;
-      left: 10%;
-  }
+.button-text {
+    font-size: 1rem;
+    text-align: center;
+}
 
-  .recipe .image {
-      position: absolute;
-      width: 510px;
-      height: 230px;
-      border-radius: 20px;
-      box-shadow: 0px 4px 4px #00000040;
-      background-size: cover;
-      background-position: 50% 50%;
-  }
+button + button {
+    margin-left: 2%;
+}
 
-  .recipe .recipe-text {
-      position: absolute;
-  }
+button + .find-button {
+    margin-left: 10%;
+}
 
-  .home,
-  .liked,
-  .add,
-  .text-icon {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin: 10px;
-      padding: 10px;
-  }
+.recipe {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30%;
+    height: 10rem;
+    left: 10%;
+    transition: transform 0.15s ease-in-out;
+}
+.recipe:active {
+    transform: scale(0.95);
+}
 
-  .spacer {
-      flex-grow: 1;
-  }
+.recipe .image {
+    width: 100%;
+    height: 100%;
+    border-radius: 1rem;
+    box-shadow: 0px 4px 4px #00000040;
+    background-size: cover;
+    background-position: 50% 50%;
+}
+
+
+.recipe-text {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.recipe-text-icon {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.taskbar-text-icon {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1%;
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+}
+.taskbar-text-icon:active {
+    transform: scale(0.9);
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+}
+
+.spacer {
+    flex-grow: 1;
+}

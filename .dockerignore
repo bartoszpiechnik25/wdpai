@@ -2,5 +2,4 @@ README.md
 .gitignore
 .vscode
 .screenshots
-# docker
 docker-compose.yml
