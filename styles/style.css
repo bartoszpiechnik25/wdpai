@@ -1,6 +1,7 @@
 html {
     width: 100%;
-    height: 100%;
+    height: auto;
+    min-height: 100%;
     margin: 0;
 }
 
@@ -21,12 +22,16 @@ body {
     justify-content: space-between;
     align-items: center;
     background-color: #eee9da;
-    border-radius: 0px 0px 20px 20px;
+    border-radius: 0px 0px 1rem 1rem;
     box-shadow: 0px 4px 4px #00000040;
     height: 7rem;
     padding: 0.1%;
     width: 100%;
-    position: relative;
+    white-space: nowrap;
+    overflow: hidden;
+    position: sticky;
+    top: 0;
+    z-index: 999;
 }
 
 .screenshot-from {
@@ -53,7 +58,6 @@ body {
 .icon {
     height: 2rem;
     width: 2rem;
-    /* margin-right: 1%; */
     padding: 1%;
 }
 
@@ -62,7 +66,6 @@ body {
     font-family: "Roboto", Helvetica;
     letter-spacing: 1.5px;
     font-size: 120%;
-    /* position: relative; */
     text-align: left;
     padding-top: 2%;
     padding-bottom: 2%;
@@ -74,9 +77,8 @@ body {
 .search-bar {
     background-color: #ffffff;
     border-radius: 20px;
-    /* position: relative; */
     height: 2.5rem;
-    width: 70%;
+    width: 90%;
     left: 10%;
     right: 10%;
     display: flex;
@@ -94,38 +96,18 @@ body {
     padding-bottom: 2%;
 }
 
-.grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-}
-
-.grid-item {
-    /* padding: 10px; */
-    margin-left: 10%;
-    margin-right: 10%;
-    text-align: center;
-}
-
-.grid-item img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
-
 .find-button {
     background: linear-gradient(180deg, rgb(147, 191, 207) 28.12%, rgba(255, 147.16, 100.94, 0.74) 94.79%);
     display: flex;
     justify-content: center;
-    font-size: 20px;
-    border-radius: 20px;
-    height: 49px;
-    width: 235px;
+    font-size: 1.5rem;
+    border-radius: 1rem;
+    height: 3rem;
+    width: 8rem;
+    margin-right: 10%;
     overflow: hidden;
     cursor: pointer;
     font-family: "Roboto-Medium", Helvetica;
-    text-align: center;
-    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -140,6 +122,7 @@ body {
     width: 80%;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 2%;
@@ -155,6 +138,8 @@ button {
     border-width: 1px;
     font-size: 1rem;
     align-items: center;
+    overflow: hidden;
+    white-space: nowrap;
     display: flex;
     justify-content: center;
     flex-grow: 2;
@@ -185,17 +170,35 @@ button + .find-button {
 }
 
 .recipe {
-    position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    width: 30%;
-    height: 10rem;
-    left: 10%;
+    /* justify-content: space-between; */
+    height: 20rem;
+    width: 40%;
     transition: transform 0.15s ease-in-out;
 }
 .recipe:active {
     transform: scale(0.95);
+}
+
+.recipes-container {
+    position: relative;
+    display: grid;
+    /* grid-template-columns: minmax(100rem, 50%) minmax(80%, 50%);
+     */
+    grid-template-columns: repeat(auto-fill, minmax(50rem, 4fr));
+    grid-template-rows: auto;
+    /* justify-content:space-between; */
+    gap: 1rem;
+    overflow: hidden;
+    width: 80%;
+    left: 10%;
+}
+
+@media (max-width: 1024px) {
+    .recipes-container {
+        grid-template-columns: repeat(1, 1fr);
+    }
 }
 
 .recipe .image {
