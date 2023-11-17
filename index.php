@@ -1,9 +1,13 @@
 <?php
+
+require_once 'Routing.php';
+
+$path = trim($_SERVER['REQUEST_URI'], "/");
+$path = parse_url($path, PHP_URL_PATH);
+
 $request_uri = $_SERVER['REQUEST_URI'];
 
-if ($request_uri === '/login') {
-  header('Location: /login.html');
-  exit;
-} 
-include 'index.html'
+Router::get('index', 'DefaultController');
+Router::get('login', 'DefaultController');
+Router::run($path);
 ?>

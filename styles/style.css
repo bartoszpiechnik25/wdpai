@@ -172,9 +172,8 @@ button + .find-button {
 .recipe {
     display: flex;
     flex-direction: column;
-    /* justify-content: space-between; */
     height: 20rem;
-    width: 40%;
+    width: 80%;
     transition: transform 0.15s ease-in-out;
 }
 .recipe:active {
@@ -184,12 +183,8 @@ button + .find-button {
 .recipes-container {
     position: relative;
     display: grid;
-    /* grid-template-columns: minmax(100rem, 50%) minmax(80%, 50%);
-     */
-    grid-template-columns: repeat(auto-fill, minmax(50rem, 4fr));
-    grid-template-rows: auto;
-    /* justify-content:space-between; */
-    gap: 1rem;
+    grid-template-columns: repeat(2, 0.5fr);
+    row-gap: 4rem;
     overflow: hidden;
     width: 80%;
     left: 10%;
