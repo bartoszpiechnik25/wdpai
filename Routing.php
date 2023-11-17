@@ -6,16 +6,14 @@ class Router {
     public static $routes;
 
     public static function get($url, $controller) {
-        if ($url == "" || $url == "/") {
-            $url = "index";
-        }
         self::$routes[$url] = $controller;
     }
 
     public static function run($url) {
-        print($url);
         $action = explode("/", $url)[0];
-        print($action);
+        if (empty($action)) {
+            $action = 'index';
+        }
 
         if (!array_key_exists($action, self::$routes)) {
             die("Wrong url");

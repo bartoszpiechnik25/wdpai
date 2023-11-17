@@ -22,7 +22,7 @@ body {
     position: relative;
     top: 1%;
     left: 10%;
-    background-image: url("../assets/icons/food_corner.png");
+    background-image: url("../img/food_corner.png");
     background-size: cover;
 }
 .login-container {
@@ -35,7 +35,7 @@ body {
     padding-left: 10%;
 }
 .image {
-    background-image: url("../images/jedzenie.png");
+    background-image: url("../img/jedzenie.png");
     background-size: cover;
     background-position: 50% 50%;
     position: relative;
