@@ -10,4 +10,6 @@ $request_uri = $_SERVER['REQUEST_URI'];
 Router::get('index', 'DefaultController');
 Router::get('login', 'DefaultController');
 Router::run($path);
+
+Router::post('login', 'SecurityController');
 ?>
