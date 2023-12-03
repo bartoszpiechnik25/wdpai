@@ -7,7 +7,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&family=Roboto:wght@300;400&display=swap"
         rel="stylesheet">
-    <title>Liked</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <title>Recipes</title>
 </head>
 
 <body>
@@ -25,9 +27,6 @@
             <div class="taskbar-text-icon">
                 <img class="icon" alt="Add recipe" src="/public/assets/icons/add.png">
                 <p class="text">Add</p>
-            </div>
-            <div class="taskbar-text-icon">
-                <img class="icon" alt="Vector" src="/public/assets/icons/menu.png">
             </div>
         </div>
     </div>
@@ -55,8 +54,8 @@
             <button>
                 <p class="button-text">Clear all filters</p>
             </button>
-            <button class="find-button">
-                Find
+            <button>
+                <p class="button-text"> Find </p>
                 <img class="button-icon" alt="Search" src="/public/assets/icons/search.png">
             </button>
         </div>
