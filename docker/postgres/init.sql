@@ -44,16 +44,16 @@ CREATE TABLE "recipe" (
   "name" varchar(255) COLLATE "pg_catalog"."default",
   "description" text COLLATE "pg_catalog"."default",
   "method" text COLLATE "pg_catalog"."default",
-  "author_id" int4,
-  "food_category_id" int4,
-  "diet_type_id" int4,
+  "author_id" int4 NOT NULL,
+  "food_category_id" int4 NOT NULL,
+  "diet_type_id" int4 NOT NULL,
   CONSTRAINT "recipe_pkey" PRIMARY KEY ("recipe_id")
 );
 ALTER TABLE "recipe" OWNER TO "postgres";
 
 CREATE TABLE "roles" (
   "role_id" int4 NOT NULL DEFAULT nextval('roles_role_id_seq'::regclass),
-  "name" varchar(40) COLLATE "pg_catalog"."default",
+  "name" varchar(40) NOT NULL COLLATE "pg_catalog"."default",
   CONSTRAINT "roles_pkey" PRIMARY KEY ("role_id"),
   CONSTRAINT "roles_name_key" UNIQUE ("name")
 );
@@ -64,7 +64,7 @@ CREATE TABLE "userprofile" (
   "name" varchar(50) COLLATE "pg_catalog"."default",
   "surname" varchar(50) COLLATE "pg_catalog"."default",
   "phone_number" varchar(15) COLLATE "pg_catalog"."default",
-  "user_id" int4,
+  "user_id" int4 NOT NULL,
   CONSTRAINT "userprofile_pkey" PRIMARY KEY ("user_profile_id"),
   CONSTRAINT "userprofile_user_id_key" UNIQUE ("user_id")
 );
@@ -72,10 +72,10 @@ ALTER TABLE "userprofile" OWNER TO "postgres";
 
 CREATE TABLE "users" (
   "user_id" int4 NOT NULL DEFAULT nextval('users_user_id_seq'::regclass),
-  "username" varchar(40) COLLATE "pg_catalog"."default",
-  "password_hash" varchar(255) COLLATE "pg_catalog"."default",
-  "salt" varchar(50) COLLATE "pg_catalog"."default",
-  "role_id" int4,
+  "username" varchar(40) NOT NULL COLLATE "pg_catalog"."default",
+  "password_hash" varchar(255) NOT NULL COLLATE "pg_catalog"."default",
+  "salt" varchar(50) NOT NULL COLLATE "pg_catalog"."default",
+  "role_id" int4 NOT NULL,
   CONSTRAINT "users_pkey" PRIMARY KEY ("user_id"),
   CONSTRAINT "users_username_key" UNIQUE ("username")
 );
@@ -89,3 +89,41 @@ ALTER TABLE "recipe" ADD CONSTRAINT "recipe_diet_type_id_fkey" FOREIGN KEY ("die
 ALTER TABLE "recipe" ADD CONSTRAINT "recipe_food_category_id_fkey" FOREIGN KEY ("food_category_id") REFERENCES "foodcategory" ("food_category_id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE "userprofile" ADD CONSTRAINT "userprofile_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users" ("user_id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 ALTER TABLE "users" ADD CONSTRAINT "users_role_id_fkey" FOREIGN KEY ("role_id") REFERENCES "roles" ("role_id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+INSERT INTO foodcategory (category)
+VALUES
+  ('Asian'),
+  ('Italian'),
+  ('African'),
+  ('Middle Eastern'),
+  ('North American'),
+  ('South American'),
+  ('European'),
+  ('Oceanian'),
+  ('Caribbean'),
+  ('Mediterranean'),
+  ('Scandinavian'),
+  ('Latin American'),
+  ('Indian'),
+  ('Southeast Asian'),
+  ('East Asian'),
+  ('Central Asian'),
+  ('Pacific Islander'),
+  ('Arctic'),
+  ('Antarctic'),
+  ('Other');
+
+INSERT INTO roles (name)
+VALUES
+  ('user'),
+  ('admin');
+insert into diettype (diet_type) values
+    ('Vegan'),
+    ('Vegetarian'),
+    ('Pescatarian'),
+    ('Flexitarian'),
+    ('Low-Carb'),
+    ('Gluten-Free'),
+    ('Low-Fat'),
+    ('Low-Calorie'),
+    ('Dairy-Free');

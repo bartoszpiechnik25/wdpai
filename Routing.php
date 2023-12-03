@@ -17,9 +17,9 @@ class Router {
 
     public static function run($url) {
         $action = explode("/", $url)[0];
-        if (empty($action)) {
-            $action = 'index';
-        }
+        // if (empty($action)) {
+        //     $action = 'login';
+        // }
 
         if (!array_key_exists($action, self::$routes)) {
             die("Wrong url");
@@ -27,6 +27,7 @@ class Router {
 
         $controller = self::$routes[$action];
         $object = new $controller;
+        $action = $action ?: 'login';
 
         $object->$action();
     }

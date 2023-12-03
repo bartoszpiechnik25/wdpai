@@ -1,5 +1,5 @@
 README.md
 .gitignore
 .vscode
-.screenshots
+screenshots
 docker-compose.yml

@@ -4,8 +4,13 @@ require_once 'AppController.php';
 require_once __DIR__.'/../models/User.php';
 
 class SecurityController extends AppController {
-    public function login(): void {
+
+    public function login() {
         $user = new User('stary_pijany', '1234', 'Jan', 'Kowalski');
+
+        if (!$this->isPost()) {
+            return $this->render('login');
+        }
         
         $username = $_POST['username'];
         $password = $_POST['password'];
@@ -15,27 +20,18 @@ class SecurityController extends AppController {
 
         if ($user->getUsername() !== $username) {
             $messages[] = 'User not found!';
-            return;
         }
         if ($user->getPassword() !== $password) {   
             $messages[] = 'Invalid password!';
-            return;
         }
-        
-        //check if array is empty
-        var_dump($messages);
-        //print messages
-        print_r($messages);
 
         if (empty($messages)) {
-            //redirect to index.php
+            //redirect to recipes.php
             $url = "http://$_SERVER[HTTP_HOST]";
-            header("Location: {$url}/index");
-            exit();
+            header("Location: {$url}/recipes");
         } else {
             //render login.php with messages
             $this->render('login', ['messages' => $messages]);
         }
-        die();
     }
 }

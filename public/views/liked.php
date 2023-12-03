@@ -2,36 +2,39 @@
 <html>
 
 <head>
-    <link rel="stylesheet" type="text/css" href="public/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/public/css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&family=Roboto:wght@300;400&display=swap"
         rel="stylesheet">
-    <title>Recipes</title>
+    <title>Liked</title>
 </head>
 
 <body>
     <div class="taskbar">
-        <img class="screenshot-from" alt="Screenshot from" src="/public/img/food_corner.png">
-        <div class="spacer"></div>
-        <div class="taskbar-text-icon">
-            <img class="icon" alt="Home" src="/public/assets/icons/home.png">
-            <p class="text">Home</p>
+        <img class="logo" alt="logo" src="/public/img/food_corner.png">
+        <div class="taskbar-buttons-container">
+            <div class="taskbar-text-icon">
+                <img class="icon" alt="Home" src="/public/assets/icons/home.png">
+                <p class="text">Home</p>
+            </div>
+            <div class="taskbar-text-icon">
+                <img class="icon" alt="Liked recipes" src="/public/assets/icons/favorite.png">
+                <p class="text">Liked</p>
+            </div>
+            <div class="taskbar-text-icon">
+                <img class="icon" alt="Add recipe" src="/public/assets/icons/add.png">
+                <p class="text">Add</p>
+            </div>
+            <div class="taskbar-text-icon">
+                <img class="icon" alt="Vector" src="/public/assets/icons/menu.png">
+            </div>
         </div>
-        <div class="taskbar-text-icon">
-            <img class="icon" alt="Liked recipes" src="/public/assets/icons/favorite.png">
-            <p class="text">Liked</p>
-        </div>
-        <div class="taskbar-text-icon">
-            <img class="icon" alt="Add recipe" src="/public/assets/icons/add.png">
-            <p class="text">Add</p>
-        </div>
-        <img class="icon" alt="Vector" src="/public/assets/icons/menu.png">
     </div>
     <div class="content">
 
         <div class="title-wrapper">
-            <h1>Recipes</h1>
+            <h1>Liked</h1>
         </div>
         <div class="search-bar-wrapper">
             <input class="search-bar" type="text" placeholder="Search">

@@ -7,9 +7,11 @@ $path = parse_url($path, PHP_URL_PATH);
 
 $request_uri = $_SERVER['REQUEST_URI'];
 
-Router::get('index', 'DefaultController');
+Router::get('', 'DefaultController');
+Router::get('recipes', 'DefaultController');
 Router::get('login', 'DefaultController');
-Router::run($path);
-
+ROuter::get('recipe', 'DefaultController');
+Router::get('liked', 'DefaultController');
 Router::post('login', 'SecurityController');
-?>
+
+Router::run($path);

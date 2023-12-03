@@ -6,6 +6,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>FoodCorner</title>
 </head>
 
@@ -19,7 +20,7 @@
                     <?php
                     if (isset($messages)) {
                         foreach ($messages as $message) {
-                            echo $message;
+                            echo $message. "<br>";
                         }
                     }
                     ?>
