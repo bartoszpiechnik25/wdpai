@@ -30,7 +30,7 @@
         </div>
     </div>
     <div class="content">
-        <form action="add" method="POST" ENCTYPE="multipart/form-data">
+        <form action="addRecipe" method="POST" ENCTYPE="multipart/form-data">
             <div class="title-wrapper">
                 <h1>Add New Recipe</h1>
             </div>

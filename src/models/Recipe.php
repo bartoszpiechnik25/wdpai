@@ -20,7 +20,7 @@ class Recipe {
         $this->image = $image;
     }
 
-    public function getImgage() {
+    public function getImage() {
         return $this->image;
     }
 

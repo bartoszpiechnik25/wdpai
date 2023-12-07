@@ -85,7 +85,7 @@
                 </div>
             </div>
             <div class="recipe">
-                <div class="image" style="background-image: url(public/uploads/<?= $recipe->getImage() ?>);"></div>
+                <div class="image" style="background-image: url(<?php echo 'public/uploads/'.htmlspecialchars($recipe->getImage()); ?>);"></div>
                 <div class="recipe-text-icon">
                     <div class="recipe-text"><?= $recipe->getName() ?></div>
                     <img class="button-icon" src="/public/assets/icons/favorite.png" />

@@ -12,6 +12,7 @@ Router::get('recipes', 'DefaultController');
 ROuter::get('recipe', 'DefaultController');
 Router::get('liked', 'DefaultController');
 Router::post('login', 'SecurityController');
+Router::get('add', 'DefaultController');
 Router::post('addRecipe', 'RecipeController');
 
 Router::run($path);
