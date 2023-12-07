@@ -44,15 +44,15 @@
         <div class="buttons-container">
             <button>
                 <p class="button-text">Category</p>
-                <img alt="Vector" src="/public/assets/icons/vector.png">
+                <img alt="Vector" src="/public/assets/icons/expand_circle_down.svg">
             </button>
             <button>
                 <p class="button-text">Sort by</p>
-                <img alt="Vector" src="/public/assets/icons/vector.png">
+                <img alt="Vector" src="/public/assets/icons/expand_circle_down.svg">
             </button>
             <button>
                 <p class="button-text">Diet</p>
-                <img alt="Vector" src="/public/assets/icons/vector.png">
+                <img alt="Vector" src="/public/assets/icons/expand_circle_down.svg">
             </button>
             <button>
                 <p class="button-text">Clear all filters</p>
@@ -81,6 +81,13 @@
                 <div class="image" style="background-image: url(public/img/sushi.jpg);"></div>
                 <div class="recipe-text-icon">
                     <div class="recipe-text">Sushi</div>
+                    <img class="button-icon" src="/public/assets/icons/favorite.png" />
+                </div>
+            </div>
+            <div class="recipe">
+                <div class="image" style="background-image: url(public/uploads/<?= $recipe->getImage() ?>);"></div>
+                <div class="recipe-text-icon">
+                    <div class="recipe-text"><?= $recipe->getName() ?></div>
                     <img class="button-icon" src="/public/assets/icons/favorite.png" />
                 </div>
             </div>

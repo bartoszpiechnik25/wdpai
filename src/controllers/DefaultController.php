@@ -7,12 +7,15 @@ class DefaultController extends AppController{
         $this->render('recipes');
     }
     public function login() {
-        $this->render('login', ['messages' => ['Siema eniu dobry mudzin z afrika']]);
+        $this->render('login');
     }
     public function recipe() {
         $this->render('recipe');
     }
     public function liked() {
         $this->render('liked');
+    }
+    public function add() {
+        $this->render('add');
     }
 }

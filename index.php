@@ -9,9 +9,9 @@ $request_uri = $_SERVER['REQUEST_URI'];
 
 Router::get('', 'DefaultController');
 Router::get('recipes', 'DefaultController');
-Router::get('login', 'DefaultController');
 ROuter::get('recipe', 'DefaultController');
 Router::get('liked', 'DefaultController');
 Router::post('login', 'SecurityController');
+Router::post('addRecipe', 'RecipeController');
 
 Router::run($path);

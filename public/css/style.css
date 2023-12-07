@@ -42,13 +42,12 @@ p {
     transition: transform 0.2s ease-in-out;
     cursor: pointer;
 }
-.taskbar-text-icon:active {
+.taskbar-text-icon:active, .like:active, .dislike:active, #recipe-heart:active {
     transform: scale(0.9);
 }
 
 .taskbar-text-icon + .taskbar-text-icon {
     margin-left: 2em;
-    /* margin-right: 5%; */
 }
 
 .taskbar-buttons-container {
@@ -65,8 +64,6 @@ p {
     height: 100%;
     object-fit: cover;
     position: relative;
-    /* padding-left: 3%; */
-    /* margin-right: 10em; */
     align-items: flex-start;
     left: 5%;
 }
@@ -94,7 +91,8 @@ p {
 
 .search-bar {
     background-color: #ffffff;
-    border-radius: 20px;
+    border-radius: 1rem;
+    border: 0px;
     height: 2.5rem;
     width: 99%;
     left: 10%;
@@ -102,6 +100,12 @@ p {
     display: flex;
     flex-direction: row;
     text-indent: 4%;
+    box-shadow: 0px 4px 4px #00000040;
+    font-size: 1rem;
+}
+
+.search-bar:focus {
+    outline: none;
 }
 
 .search-bar::placeholder {
@@ -128,7 +132,6 @@ p {
     flex-wrap:nowrap;
     align-items: center;
     justify-content: space-between;
-    /* margin-bottom: 2%; */
     left: 10%;
     position: relative;
 }
@@ -157,8 +160,8 @@ button:active {
 }
 
 button img {
-    width: 1rem;
-    height: 1rem;
+    width: 1.5rem;
+    height: 1.5rem;
     margin-left: 5%;
 }
 
@@ -175,7 +178,7 @@ button + button {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 20rem;
+    height: 25rem;
     width: 100%;
     transition: transform 0.15s ease-in-out;
 }
@@ -204,18 +207,88 @@ button + button {
 
 
 .recipe-text {
+    display: flex;
     position: relative;
-    top: 50%;
-    transform: translateY(-50%);
+    justify-content: center;
+    align-items: center;
 }
 
 .recipe-text-icon {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin-top: 1%;
+}
+
+.recipe-buttons {
+    margin-left: 10%;
+}
+
+#recipe-heart {
+    padding: 0px;
+    margin-left: 2em;
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+#recipe-heart {
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.likes-container {
+    margin-top: 1%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.like, .dislike {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.like-dislike-container {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: center;
+}
+
+.dislike p, .like p {
+    margin: 0;
+}
+
+.like + .dislike {
+    padding-left: 4em;
+    margin-right: 2em;
 }
 
 
+.image-icon-container {
+    width: 80%;
+    position: relative;
+    margin-left: 10%;
+    flex-grow: 3;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+}
+
+.messages {
+    margin-top: 2%;
+    margin-left: 10%;
+    display:flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    align-content: flex-start;
+    font-size: 1.25rem;
+}
 
 .content {
     display: flex;
@@ -226,12 +299,47 @@ button + button {
     flex-grow: 1;
 }
 
-li, p, h2 {
+.input-file-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-buttons-container {
+    margin-top: 4%;
+    width: 80%;
+    margin-left:10%;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.category-diet-buttons {
+    display: flex;
+    flex-direction: row;
+    margin: 2em 6em 0 6em;
+
+}
+
+.add-button {
+    display: flex;
+    width: 80%;
+    margin-left: 10%;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-button > button {
+    margin: 0% 40%;
+}
+
+li, p, h2, .recipe-text {
     font-family: "Roboto", Helvetica;
 }
 h2 {
-    font-size: 2.5em;
-    margin-left: 10%;
+    font-size: 2em;
+    margin: 2% 0% 0% 10%;
     width:80%;
 }
 
@@ -240,17 +348,24 @@ h1 {
 }
 
 h2 + p, h2 + ul {
-    margin-left: 11%;
+    margin-left: 10%;
     width:80%;
     font-size: 1.5em;
 }
 
-.image-icon-container {
+.box-text {
+    font-family: "Roboto", Helvetica;
     width: 80%;
-    position: relative;
+    border-radius: 1em;
+    margin-top: 2%;
     margin-left: 10%;
-    flex-grow: 3;
+    min-height: 8em;
+    text-indent: 1%;
+    box-shadow: 0px 4px 4px #00000040;
+    border: 0;
+
 }
+
 
 @media (max-width: 700px) {
     .icon {
@@ -302,6 +417,12 @@ h2 + p, h2 + ul {
     h1 {
         font-size: 2em;
     }
+    h2 {
+        font-size: 1.5em;
+    }
+    h2 + p, h2 + ul {
+        font-size: 1em;
+    }
     button {
         min-height: 1em;
         max-height: 2em;
@@ -312,6 +433,9 @@ h2 + p, h2 + ul {
     }
     .search-bar-wrapper {
         padding-bottom: 5%;
+    }
+    .category-diet-buttons {
+        margin: 1em 1em 0 1em;
     }
 
 }

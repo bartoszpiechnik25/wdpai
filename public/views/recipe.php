@@ -7,7 +7,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&family=Roboto:wght@300;400&display=swap"
         rel="stylesheet">
-    <title>FoodCorner:Recipe</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Pizza Neapolitana</title>
 </head>
 
 <body>
@@ -26,9 +27,9 @@
                 <img class="icon" alt="Add recipe" src="/public/assets/icons/add.png">
                 <p class="text">Add</p>
             </div>
-            <div class="taskbar-text-icon">
+            <!-- <div class="taskbar-text-icon">
                 <img class="icon" alt="Vector" src="/public/assets/icons/menu.png">
-            </div>
+            </div> -->
         </div>
     </div>
     <div class="content">
@@ -37,6 +38,21 @@
         </div>
         <div class="image-icon-container">
             <div class="image" style="background-image: url(/public/img/pizza.jpg); min-height: 500px;"></div>
+            <div class="likes-container">
+                <img class="icon" id="recipe-heart" alt="number of dislikes" src="/public/assets/icons/favorite.png">
+                <div class="like-dislike-container">
+
+                <div class="like">
+                    <img class="icon" alt="number of likes" src="/public/assets/icons/thumb_up.svg">
+                    <p>128</p>
+                </div>
+                <div class="dislike">
+                    <img class="icon" alt="number of dislikes" src="/public/assets/icons/thumb_down.svg">
+                    <p>5</p>
+                </div>
+                </div>
+
+            </div>
         </div>
         <h2>Description</h2>
         <p>Delicious pizza with enormous edges, tastes like real neapolitan pizza simply follow my steps and enjoy :)</p>
