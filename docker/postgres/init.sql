@@ -127,3 +127,5 @@ insert into diettype (diet_type) values
     ('Low-Fat'),
     ('Low-Calorie'),
     ('Dairy-Free');
+
+insert into users (username, email, password_hash, role_id) values ('stachu_jones', 'stachu@gmali.com', '1234', 1);
