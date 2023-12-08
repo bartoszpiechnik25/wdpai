@@ -2,11 +2,12 @@
 
 require_once 'AppController.php';
 require_once __DIR__.'/../models/User.php';
+require_once __DIR__.'/../repository/UserRepository.php';
+
 
 class SecurityController extends AppController {
 
     public function login() {
-        $user = new User('stary_pijany', '1234', 'Jan', 'Kowalski');
 
         if (!$this->isPost()) {
             return $this->render('login');
@@ -15,15 +16,22 @@ class SecurityController extends AppController {
         $username = $_POST['username'];
         $password = $_POST['password'];
 
-        //create array for message about username and password
+        $userRepository = new UserRepository();
+
+        //create array for error messages
         $messages = [];
 
-        if ($user->getUsername() !== $username) {
-            $messages[] = 'User not found!';
+        try {
+            $user = $userRepository->getUser($username);
+
+            if ($user->getPassword() !== $password) {   
+                $messages[] = 'Invalid password!';
+            }
+
+        } catch (Exception $exception) {
+            $messages[] = $exception->getMessage();
         }
-        if ($user->getPassword() !== $password) {   
-            $messages[] = 'Invalid password!';
-        }
+
 
         if (empty($messages)) {
             //redirect to recipes.php

@@ -73,8 +73,8 @@ ALTER TABLE "userprofile" OWNER TO "postgres";
 CREATE TABLE "users" (
   "user_id" int4 NOT NULL DEFAULT nextval('users_user_id_seq'::regclass),
   "username" varchar(40) NOT NULL COLLATE "pg_catalog"."default",
+  "email" varchar(255) NOT NULL COLLATE "pg_catalog"."default",
   "password_hash" varchar(255) NOT NULL COLLATE "pg_catalog"."default",
-  "salt" varchar(50) NOT NULL COLLATE "pg_catalog"."default",
   "role_id" int4 NOT NULL,
   CONSTRAINT "users_pkey" PRIMARY KEY ("user_id"),
   CONSTRAINT "users_username_key" UNIQUE ("username")
