@@ -2,18 +2,12 @@
 
 require_once 'AppController.php';
 require_once __DIR__.'/../models/Recipe.php';
+require_once __DIR__.'/../repository/RecipeRepository.php';
 
 class DefaultController extends AppController{
     public function recipes() {
-        $recipe = new Recipe(
-            "Simething",
-            "essa",
-            "o tako",
-            'askldjflkasjdf',
-            'asldjflkajsdlfjla',
-            'jakis shit',
-            'perogi.jpeg'
-        );
+        $recipeRepository = new RecipeRepository();
+        $recipe = $recipeRepository->getRecipe(4);
         $this->render('recipes', ['recipe' => $recipe]);
     }
     public function login() {
