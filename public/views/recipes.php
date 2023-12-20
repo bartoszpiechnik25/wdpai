@@ -63,7 +63,7 @@
             </button>
         </div>
         <div class="recipes-container">
-            <div class="recipe">
+            <!-- <div class="recipe">
                 <div class="image" style="background-image: url(public/img/ramen.jpg);"></div>
                 <div class="recipe-text-icon">
                     <div class="recipe-text">Ramen</div>
@@ -83,14 +83,16 @@
                     <div class="recipe-text">Sushi</div>
                     <img class="button-icon" src="/public/assets/icons/favorite.png" />
                 </div>
-            </div>
-            <div class="recipe">
-                <div class="image" style="background-image: url(<?php echo 'public/uploads/'.htmlspecialchars($recipe->getImageUrl()); ?>);"></div>
-                <div class="recipe-text-icon">
-                    <div class="recipe-text"><?= $recipe->getName() ?></div>
-                    <img class="button-icon" src="/public/assets/icons/favorite.png" />
+            </div> -->
+            <?php foreach ($recipes as $recipe): ?>
+                <div class="recipe">
+                    <div class="image" style="background-image: url('public/uploads/<?=$recipe->getImageUrl(); ?>');"></div>
+                    <div class="recipe-text-icon">
+                        <div class="recipe-text"><?= $recipe->getName(); ?></div>
+                        <img class="button-icon" src="/public/assets/icons/favorite.png" />
+                    </div>
                 </div>
-            </div>
+            <?php endforeach; ?>
         </div>
     </div>
 

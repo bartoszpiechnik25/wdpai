@@ -52,7 +52,7 @@ body {
     padding-right: 7%;
     display: flex;
     flex-direction: row;
-    position: relative;
+    position: relative;left: 0%;
     flex-grow: 0.8;
 }
 input {
@@ -67,7 +67,7 @@ input + input, button + button {
 }
 input::placeholder {
     text-align: center;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.01em;
     color: #ACACAC;
 }
 input + button {
@@ -79,7 +79,7 @@ button {
     border-radius: 1rem;
     color: white;
     padding: 3.5%;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.01em;
     cursor: pointer;
     transition: transform 0.15s ease-in-out;
     position: relative;
@@ -95,6 +95,39 @@ button:active {
     border-radius: 1rem;
     /* margin-top: 5%; Match the spacing between input and button */
     text-align: center;
+}
+
+.content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.register-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.content-container .logo {
+    left: 0%;
+}
+
+.register-input {
+    margin-bottom: 5%;
+    min-width: 20em;
+    min-height: 2em;
+}
+
+.register-button {
+    text-align: center;
+    margin-left: 1em;
+}
+
+.invalid {
+    border: 2px solid red;
+    border-radius: 1rem;
+    outline: none;
 }
 
 
@@ -128,5 +161,13 @@ button:active {
     }
     .logo + .image-login-container {
         margin-top: 15%;
+    }
+    .register-input {
+        margin-bottom: 5%;
+        min-width: 15em;
+        min-height: 1.5em;
+    }
+    .content-container .logo {
+        margin-top: 5%;
     }
 }

@@ -1,94 +1,3 @@
--- CREATE SEQUENCE diettype_diet_type_id_seq;
--- CREATE SEQUENCE foodcategory_food_category_id_seq;
--- CREATE SEQUENCE images_image_id_seq;
--- CREATE SEQUENCE likedrecipes_liked_recipe_id_seq;
--- CREATE SEQUENCE recipe_recipe_id_seq;
--- CREATE SEQUENCE roles_role_id_seq;
--- CREATE SEQUENCE userprofile_user_profile_id_seq;
--- CREATE SEQUENCE users_user_id_seq;
-
--- CREATE TABLE "diettype" (
---   "diet_type_id" int4 NOT NULL DEFAULT nextval('diettype_diet_type_id_seq'::regclass),
---   "diet_type" varchar(60) COLLATE "pg_catalog"."default",
---   CONSTRAINT "diettype_pkey" PRIMARY KEY ("diet_type_id"),
---   CONSTRAINT "diettype_diet_type_key" UNIQUE ("diet_type")
--- );
--- ALTER TABLE "diettype" OWNER TO "postgres";
-
--- CREATE TABLE "foodcategory" (
---   "food_category_id" int4 NOT NULL DEFAULT nextval('foodcategory_food_category_id_seq'::regclass),
---   "category" varchar COLLATE "pg_catalog"."default",
---   CONSTRAINT "foodcategory_pkey" PRIMARY KEY ("food_category_id"),
---   CONSTRAINT "foodcategory_category_key" UNIQUE ("category")
--- );
--- ALTER TABLE "foodcategory" OWNER TO "postgres";
-
--- CREATE TABLE "images" (
---   "image_id" int4 NOT NULL DEFAULT nextval('images_image_id_seq'::regclass),
---   "bucket_url" varchar(100) COLLATE "pg_catalog"."default",
---   "recipe_id" int4,
---   CONSTRAINT "images_pkey" PRIMARY KEY ("image_id")
--- );
--- ALTER TABLE "images" OWNER TO "postgres";
-
--- CREATE TABLE "likedrecipes" (
---   "liked_recipe_id" int4 NOT NULL DEFAULT nextval('likedrecipes_liked_recipe_id_seq'::regclass),
---   "user_id" int4,
---   "recipe_id" int4,
---   CONSTRAINT "likedrecipes_pkey" PRIMARY KEY ("liked_recipe_id")
--- );
--- ALTER TABLE "likedrecipes" OWNER TO "postgres";
-
--- CREATE TABLE "recipe" (
---   "recipe_id" int4 NOT NULL DEFAULT nextval('recipe_recipe_id_seq'::regclass),
---   "name" varchar(255) COLLATE "pg_catalog"."default",
---   "description" text COLLATE "pg_catalog"."default",
---   "method" text COLLATE "pg_catalog"."default",
---   "author_id" int4 NOT NULL,
---   "food_category_id" int4 NOT NULL,
---   "diet_type_id" int4 NOT NULL,
---   CONSTRAINT "recipe_pkey" PRIMARY KEY ("recipe_id")
--- );
--- ALTER TABLE "recipe" OWNER TO "postgres";
-
--- CREATE TABLE "roles" (
---   "role_id" int4 NOT NULL DEFAULT nextval('roles_role_id_seq'::regclass),
---   "name" varchar(40) NOT NULL COLLATE "pg_catalog"."default",
---   CONSTRAINT "roles_pkey" PRIMARY KEY ("role_id"),
---   CONSTRAINT "roles_name_key" UNIQUE ("name")
--- );
--- ALTER TABLE "roles" OWNER TO "postgres";
-
--- CREATE TABLE "userprofile" (
---   "user_profile_id" int4 NOT NULL DEFAULT nextval('userprofile_user_profile_id_seq'::regclass),
---   "name" varchar(50) COLLATE "pg_catalog"."default",
---   "surname" varchar(50) COLLATE "pg_catalog"."default",
---   "phone_number" varchar(15) COLLATE "pg_catalog"."default",
---   "user_id" int4 NOT NULL,
---   CONSTRAINT "userprofile_pkey" PRIMARY KEY ("user_profile_id"),
---   CONSTRAINT "userprofile_user_id_key" UNIQUE ("user_id")
--- );
--- ALTER TABLE "userprofile" OWNER TO "postgres";
-
--- CREATE TABLE "users" (
---   "user_id" int4 NOT NULL DEFAULT nextval('users_user_id_seq'::regclass),
---   "username" varchar(40) NOT NULL COLLATE "pg_catalog"."default",
---   "email" varchar(255) NOT NULL COLLATE "pg_catalog"."default",
---   "password_hash" varchar(255) NOT NULL COLLATE "pg_catalog"."default",
---   "role_id" int4 NOT NULL,
---   CONSTRAINT "users_pkey" PRIMARY KEY ("user_id"),
---   CONSTRAINT "users_username_key" UNIQUE ("username")
--- );
--- ALTER TABLE "users" OWNER TO "postgres";
-
--- ALTER TABLE "images" ADD CONSTRAINT "images_recipe_id_fkey" FOREIGN KEY ("recipe_id") REFERENCES "recipe" ("recipe_id") ON DELETE NO ACTION ON UPDATE NO ACTION;
--- ALTER TABLE "likedrecipes" ADD CONSTRAINT "likedrecipes_recipe_id_fkey" FOREIGN KEY ("recipe_id") REFERENCES "recipe" ("recipe_id") ON DELETE NO ACTION ON UPDATE NO ACTION;
--- ALTER TABLE "likedrecipes" ADD CONSTRAINT "likedrecipes_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users" ("user_id") ON DELETE NO ACTION ON UPDATE NO ACTION;
--- ALTER TABLE "recipe" ADD CONSTRAINT "recipe_author_id_fkey" FOREIGN KEY ("author_id") REFERENCES "users" ("user_id") ON DELETE NO ACTION ON UPDATE NO ACTION;
--- ALTER TABLE "recipe" ADD CONSTRAINT "recipe_diet_type_id_fkey" FOREIGN KEY ("diet_type_id") REFERENCES "diettype" ("diet_type_id") ON DELETE NO ACTION ON UPDATE NO ACTION;
--- ALTER TABLE "recipe" ADD CONSTRAINT "recipe_food_category_id_fkey" FOREIGN KEY ("food_category_id") REFERENCES "foodcategory" ("food_category_id") ON DELETE NO ACTION ON UPDATE NO ACTION;
--- ALTER TABLE "userprofile" ADD CONSTRAINT "userprofile_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users" ("user_id") ON DELETE NO ACTION ON UPDATE NO ACTION;
--- ALTER TABLE "users" ADD CONSTRAINT "users_role_id_fkey" FOREIGN KEY ("role_id") REFERENCES "roles" ("role_id") ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 create sequence diettype_diet_type_id_seq;
 
@@ -192,7 +101,7 @@ create table images
 (
 	image_id integer default nextval('images_image_id_seq'::regclass) not null
 		primary key,
-	bucket_url varchar(100),
+	image_url varchar(100),
 	recipe_id integer
 		references recipes
 );
@@ -271,12 +180,41 @@ values (
         'Pizza Neapolitana',
         'Delicious pizza with enormous edges, tastes like real neapolitan pizza simply follow my steps and enjoy :)',
         '
-flour type 00 (639g)
-yeast (0.4g)
-salt (11g)
-water (400 ml)',
-        'Mix all the ingredients into a shaggy mass.
-Cover the bowl with cling film
-Leave the dough to rest for around 1 hour.
-Turn the dough out onto the counter and knead for around 5 minutes.
-Place the dough back into the bowl and cover tightly.', 1, 2, 5);
+		flour type 00 (639g)
+		yeast (0.4g)
+		salt (11g)
+		water (400 ml)',
+				'Mix all the ingredients into a shaggy mass.
+		Cover the bowl with cling film
+		Leave the dough to rest for around 1 hour.
+		Turn the dough out onto the counter and knead for around 5 minutes.
+		Place the dough back into the bowl and cover tightly.', 1, 2, 5
+),
+(
+        'Sushi',
+        'Delicious Japanese sushi rolls with fresh ingredients.',
+        'Sushi rice, nori, fresh fish (such as salmon or tuna), avocado, cucumber, soy sauce, wasabi, pickled ginger',
+        '1. Cook sushi rice and let it cool.\n2. Place a sheet of nori on a bamboo sushi mat.\n3. Spread a thin layer of rice on the nori.\n4. Add slices of fresh fish, avocado, and cucumber.\n5. Roll the sushi tightly using the bamboo mat.\n6. Slice the roll into bite-sized pieces.\n7. Serve with soy sauce, wasabi, and pickled ginger.',
+        1,
+        1,
+        2
+),
+(
+        'Ramen',
+        'Comforting bowl of Japanese ramen with savory broth and noodles.',
+        'Ramen noodles, chicken or pork broth, soy sauce, miso paste, green onions, sliced pork belly, soft-boiled egg, seaweed',
+        '1. Boil ramen noodles according to package instructions.\n2. In a separate pot, heat the broth and add soy sauce and miso paste to taste.\n3. Cook sliced pork belly until browned.\n4. Assemble ramen bowls with noodles, broth, sliced pork, green onions, a soft-boiled egg, and seaweed.\n5. Serve hot and enjoy!',
+        1,
+        1,
+        2
+);
+
+insert into images (recipe_id, image_url) values (
+	1, 'pizza.jpg'
+),
+(
+	2, 'sushi.jpg'
+),
+(
+	3, 'ramen.jpg'
+);

@@ -42,4 +42,18 @@ class SecurityController extends AppController {
             $this->render('login', ['messages' => $messages]);
         }
     }
+
+    public function register() {
+        if ($this->isGet()) {
+            return $this->render('register');
+        }
+
+        $username = $_POST['username'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $name = $_POST['name'];
+        $surname = $_POST['surname'];
+        $phone_number = $_POST['phone_number'];
+
+    }
 }

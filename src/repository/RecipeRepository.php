@@ -26,11 +26,33 @@ class RecipeRepository extends Repository {
             $recipe['method'],
             (int)$recipe['food_category_id'],
             (int)$recipe['diet_type_id'],
-            $recipe['bucket_url'],
+            $recipe['image_url'],
             (int)$recipe['author_id']
         );
         $recipe->setId($recipe_id);
         return $recipe;
+    }
+
+    public function getRecipes(): array {
+        $result = [];
+        $query = $this->database->connect()->query('select * from recipes natural left join images');
+
+        $recipes = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($recipes as $recipe) {
+            $result[] = new Recipe(
+                $recipe['name'],
+                $recipe['description'],
+                $recipe['ingredients'],
+                $recipe['method'],
+                (int)$recipe['food_category_id'],
+                (int)$recipe['diet_type_id'],
+                $recipe['image_url'],
+                (int)$recipe['author_id']
+            );
+        }
+
+        return $result;
     }
 
     public function addRecipe(Recipe $recipe): void {

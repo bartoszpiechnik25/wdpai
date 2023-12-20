@@ -9,9 +9,9 @@ class Recipe {
     private int $author_id;
     private int $category_id;
     private int $diet_type_id;
-    private string $bucket_image_url;
+    private $image_url;
 
-    public function __construct(string $name, string $description, string $ingredients, string $method, int $category_id, int $diet_type_id, string $image, int $author_id) {
+    public function __construct(string $name, string $description, string $ingredients, string $method, int $category_id, int $diet_type_id, string $image = null, int $author_id) {
         $this->name = $name;
         $this->description = $description;
         $this->ingredients = $ingredients;
@@ -19,7 +19,7 @@ class Recipe {
         $this->category_id = $category_id;
         $this->diet_type_id = $diet_type_id;
         $this->author_id = $author_id;
-        $this->bucket_image_url = $image;
+        $this->image_url = $image;
     }
 
     public function getId() {
@@ -44,7 +44,7 @@ class Recipe {
     }
 
     public function getImageUrl() {
-        return $this->bucket_image_url;
+        return $this->image_url;
     }
 
     public function getName() {
@@ -76,7 +76,7 @@ class Recipe {
     }
     
     public function setImage(string $image) {
-        $this->bucket_image_url = $image;
+        $this->image_url = $image;
     }
     
     public function setName(string $name) {

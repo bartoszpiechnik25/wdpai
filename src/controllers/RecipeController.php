@@ -45,6 +45,11 @@ class RecipeController extends AppController {
         $this->render('add', ['messages' => $this->messages]);
     }
 
+    public function recipes() {
+        $recipes = $this->recipeRepository->getRecipes();
+        $this->render('recipes', ['recipes' => $recipes]);
+    }
+
     private function validate(array $file) {
         if ($file['size'] > self::MAX_FILE_SIZE) {
             $this->messages[] = 'File is to large';
