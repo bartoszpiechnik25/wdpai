@@ -47,7 +47,13 @@ class RecipeController extends AppController {
 
     public function recipes() {
         $recipes = $this->recipeRepository->getRecipes();
-        $this->render('recipes', ['recipes' => $recipes]);
+        $categories = $this->recipeRepository->getCategories();
+        $diets = $this->recipeRepository->getDietType();
+        $this->render('recipes', [
+            'recipes' => $recipes,
+            'categories' => $categories,
+            'diets' => $diets
+        ]);
     }
 
     private function validate(array $file) {
@@ -61,5 +67,21 @@ class RecipeController extends AppController {
             return false;
         }
         return true;
+    }
+
+    public function search() {
+        $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
+
+        if ($contentType === 'application/json') {
+            $content = trim(file_get_contents("php://input"));
+            $decoded = json_decode($content, true);
+            header('Content-Type: application/json');
+            http_response_code(200);
+            echo json_encode($this->recipeRepository->getRecipesByKeyword(
+                $decoded['search'],
+                $decoded['diet'],
+                $decoded['category']
+            ));
+        }
     }
 }

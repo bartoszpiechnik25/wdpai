@@ -1,6 +1,6 @@
 html {
     width: 100%;
-    height: 100%;
+    height: auto;
     margin: 0;
     font-family: "Roboto", Helvetica;
 }
@@ -9,9 +9,9 @@ body {
     background: linear-gradient(180deg, #EEE9DA 0%, #EEE9DA 32.4%, #BDCDD6 65.73%);
     margin: 0;
     width: 100%;
-    height: 100%;
+    height: auto;
     min-height: 400px;
-    overflow: hidden;
+    overflow-y: auto;
 }
 .container {
     display: flex;
@@ -19,10 +19,10 @@ body {
     flex-direction: column;
 }
 .logo {
-    width: 400px;
-    height: 300px;
+    width: 350px;
+    height: 250px;
     position: relative;
-    top: 1%;
+    /* top: 1%; */
     left: 10%;
     background-image: url("../img/food_corner.png");
     background-size: cover;
@@ -101,12 +101,15 @@ button:active {
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-y: auto;
     text-align: center;
 }
 
 .register-container {
     display: flex;
     flex-direction: column;
+    margin-bottom: 5%;
+    /* overflow: auto; */
 }
 
 .content-container .logo {

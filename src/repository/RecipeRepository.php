@@ -6,6 +6,14 @@ require_once __DIR__.'/../exceptions/NotFoundException.php';
 
 
 class RecipeRepository extends Repository {
+    private static array $categoryMapping;
+    private static array $dietMapping;
+
+    public function __construct() {
+        parent::__construct();
+        $this->getDietType();
+        $this->getCategories();
+    }
 
     public function getRecipe(int $recipe_id): Recipe {
 
@@ -90,5 +98,64 @@ class RecipeRepository extends Repository {
         );
         $insert_image->execute([$recipe_id, $recipe->getImageUrl()]);
 
+    }
+
+    public function getRecipesByKeyword(string $searchString, ?string $diet, ?string $category) {
+        $base_query = 'select recipe_id, name, image_url from recipes natural join images where name ilike :search';
+        if (!is_null($category)) {
+            $id = $this->keyExistsInMapping($category, self::$categoryMapping);
+            if (!is_null($id)) {
+                $base_query = $base_query.' and food_category_id='.$id;
+            }
+        }
+
+        if (!is_null($diet)) {
+            $d_id = $this->keyExistsInMapping($diet, self::$dietMapping);
+            if (!is_null($d_id)) {
+                $base_query = $base_query.' and diet_type_id='.$d_id;
+            }
+        }
+        $searchString = '%'.$searchString.'%';
+        $connection = $this->database->connect();
+        $stmt = $connection->prepare(
+            $base_query
+        );
+        $stmt->bindParam(':search', $searchString, PDO::PARAM_STR);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getCategories(): array {
+        $query = $this->database->connect()->query(
+            "select * from foodcategory"
+        );
+        $food_categories = array();
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        foreach($result as $category) {
+            $food_categories[$category["category"]] = $category["food_category_id"];
+        }
+        self::$categoryMapping = $food_categories;
+        return $food_categories;
+    }
+
+    public function getDietType(): array {
+        $query = $this->database->connect()->query(
+            "select * from diettype"
+        );
+        $diet_type = array();
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        foreach($result as $diet) {
+            $diet_type[$diet["diet_type"]] = $diet["diet_type_id"];
+        }
+        RecipeRepository::$dietMapping = $diet_type;
+        return $diet_type;
+    }
+
+    private function keyExistsInMapping(string $key, array $mapping): ?int {
+        if (array_key_exists($key, $mapping)) {
+            return $mapping[$key];
+        }
+        return null;
     }
 }

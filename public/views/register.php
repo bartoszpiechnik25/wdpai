@@ -12,7 +12,16 @@
     <body>
         <div class="content-container">
             <div class="logo"></div>
-            <form class="register-container" action="login" method="POST">
+            <form class="register-container" action="register" method="POST">
+            <div class="messages">
+                    <?php
+                    if (isset($messages)) {
+                        foreach ($messages as $message) {
+                            echo $message. "<br>";
+                        }
+                    }
+                    ?>
+                </div>
                 <input class="register-input" type="text" placeholder="Username" name="username">
                 <input class="register-input" type="email" placeholder="Email" name="email">
                 <input class="register-input" type="password" placeholder="Password" name="password">

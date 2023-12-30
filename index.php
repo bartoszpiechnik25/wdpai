@@ -14,6 +14,7 @@ Router::get('liked', 'DefaultController');
 Router::post('login', 'SecurityController');
 Router::get('add', 'DefaultController');
 Router::post('addRecipe', 'RecipeController');
-Router::get('register', 'DefaultController');
+Router::get('register', 'SecurityController');
+Router::post('search', 'RecipeController');
 
 Router::run($path);

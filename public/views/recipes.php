@@ -8,8 +8,40 @@
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville&family=Roboto:wght@300;400&display=swap"
         rel="stylesheet">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-
+    <script type="text/javascript" src="./public/js/search.js" defer></script>
     <title>Recipes</title>
+    <style>
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            max-height: 150px; /* Set a fixed height for the dropdown content */
+            overflow-y: auto; /* Add a scrollbar when content overflows */
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    </style>
 </head>
 
 <body>
@@ -28,9 +60,6 @@
                 <img class="icon" alt="Add recipe" src="/public/assets/icons/add.png">
                 <p class="text">Add</p>
             </div>
-            <!-- <div class="taskbar-text-icon">
-                <img class="icon" alt="Vector" src="/public/assets/icons/menu.png">
-            </div> -->
         </div>
     </div>
     <div class="content">
@@ -42,48 +71,51 @@
             <input class="search-bar" type="text" placeholder="Search">
         </div>
         <div class="buttons-container">
-            <button>
+            <!-- <button id="category-button">
                 <p class="button-text">Category</p>
                 <img alt="Vector" src="/public/assets/icons/expand_circle_down.svg">
-            </button>
+            </button> -->
+            <div class="dropdown">
+                <button id="category-button">
+                    <p class="button-text">Category</p>
+                    <img alt="Vector" src="/public/assets/icons/expand_circle_down.svg">
+                </button>
+                <div class="dropdown-content" id="category-dropdown">
+                    <?php
+                    // Fetch categories dynamically using PHP and populate options
+                    foreach ($categories as $category => $id) {
+                        echo '<a>' . $category . '</a>';
+                    }
+                    ?>
+                </div>
+            </div>
             <button>
                 <p class="button-text">Sort by</p>
                 <img alt="Vector" src="/public/assets/icons/expand_circle_down.svg">
             </button>
-            <button>
-                <p class="button-text">Diet</p>
-                <img alt="Vector" src="/public/assets/icons/expand_circle_down.svg">
-            </button>
-            <button>
+            <div class="dropdown">
+                <button id="diet-button">
+                    <p class="button-text">Diet</p>
+                    <img alt="Vector" src="/public/assets/icons/expand_circle_down.svg">
+                </button>
+                <div class="dropdown-content" id="diet-dropdown">
+                    <?php
+                    // Fetch categories dynamically using PHP and populate options
+                    foreach ($diets as $diet => $id) {
+                        echo '<a>' . $diet . '</a>';
+                    }
+                    ?>
+                </div>
+            </div>
+            <button id="clear-filters">
                 <p class="button-text">Clear all filters</p>
             </button>
-            <button>
+            <button id="findButton">
                 <p class="button-text"> Find </p>
                 <img class="button-icon" alt="Search" src="/public/assets/icons/search.png">
             </button>
         </div>
         <div class="recipes-container">
-            <!-- <div class="recipe">
-                <div class="image" style="background-image: url(public/img/ramen.jpg);"></div>
-                <div class="recipe-text-icon">
-                    <div class="recipe-text">Ramen</div>
-                    <img class="button-icon" src="/public/assets/icons/favorite.png" />
-                </div>
-            </div>
-            <div class="recipe">
-                <div class="image" style="background-image: url(public/img/pizza.jpg);"></div>
-                <div class="recipe-text-icon">
-                    <div class="recipe-text">Pizza Neapolitana</div>
-                    <img class="button-icon" src="/public/assets/icons/favorite.png" />
-                </div>
-            </div>
-            <div class="recipe">
-                <div class="image" style="background-image: url(public/img/sushi.jpg);"></div>
-                <div class="recipe-text-icon">
-                    <div class="recipe-text">Sushi</div>
-                    <img class="button-icon" src="/public/assets/icons/favorite.png" />
-                </div>
-            </div> -->
             <?php foreach ($recipes as $recipe): ?>
                 <div class="recipe">
                     <div class="image" style="background-image: url('public/uploads/<?=$recipe->getImageUrl(); ?>');"></div>
@@ -98,5 +130,15 @@
 
     </div>
 </body>
+
+<template id="recipe-template">
+    <div class="recipe">
+        <div class="image" style="background-image: url('');"></div>
+        <div class="recipe-text-icon">
+            <div class="recipe-text"></div>
+            <img class="button-icon" src="/public/assets/icons/favorite.png" />
+        </div>
+    </div>
+</template>
 
 </html>

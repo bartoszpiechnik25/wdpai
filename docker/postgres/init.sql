@@ -1,4 +1,4 @@
-
+create extension pg_trgm;
 create sequence diettype_diet_type_id_seq;
 
 alter sequence diettype_diet_type_id_seq owner to postgres;
@@ -97,6 +97,11 @@ create table recipes
 
 alter table recipes owner to postgres;
 
+create index recipe_method_idx on recipes using gin (method gin_trgm_ops);
+create index recipe_description_idx on recipes using gin (description gin_trgm_ops);
+create index recipe_ingedients_idx on recipes using gin (ingredients gin_trgm_ops);
+
+
 create table images
 (
 	image_id integer default nextval('images_image_id_seq'::regclass) not null
@@ -129,7 +134,7 @@ create table userprofile
 	phone_number varchar(15),
 	user_id integer not null
 		unique
-		references users
+		references users on delete cascade
 );
 
 alter table userprofile owner to postgres;
@@ -173,7 +178,16 @@ insert into diettype (diet_type) values
     ('Low-Calorie'),
     ('Dairy-Free');
 
-insert into users (username, email, password_hash, role_id) values ('stachu_jones', 'stachu@gmali.com', '1234', 1);
+insert into users (username, email, password_hash, role_id) values 
+('stachu_jones', 'stachu@gmali.com', '1234', 1),
+('john_doe', 'john@example.com', '1234', 1),
+('jane_smith', 'jane@example.com', '1234', 1),
+('admin_user', 'admin@example.com', '1234', 2);
+
+insert into userprofile (name, surname, phone_number, user_id) 
+values 
+  ('John', 'Doe', '123-456-7890', 2),
+  ('Jane', 'Smith', '987-654-3210', 3);
 
 insert into recipes (name, description, ingredients, method, author_id, food_category_id, diet_type_id)
 values (
@@ -207,6 +221,33 @@ values (
         1,
         1,
         2
+),
+(
+  'Spaghetti Bolognese',
+  'Classic Italian pasta dish with rich meat sauce.',
+  'Spaghetti, ground beef, onion, garlic, tomato sauce, salt, pepper, olive oil, Parmesan cheese',
+  '1. Cook spaghetti according to package instructions.\n2. In a pan, sauté chopped onion and garlic in olive oil.\n3. Add ground beef and cook until browned.\n4. Pour in tomato sauce and simmer for 20 minutes.\n5. Season with salt and pepper.\n6. Serve over cooked spaghetti and sprinkle with Parmesan cheese.',
+  1,
+  2,
+  6
+),
+(
+  'Chicken Stir-Fry',
+  'Quick and easy Asian-inspired stir-fry with chicken and vegetables.',
+  'Chicken breast, broccoli, bell peppers, soy sauce, ginger, garlic, sesame oil, rice',
+  '1. Cut chicken into bite-sized pieces.\n2. Stir-fry chicken in sesame oil until cooked.\n3. Add chopped vegetables and cook until tender.\n4. Mix in soy sauce, ginger, and garlic.\n5. Serve over cooked rice.',
+  2,
+  1,
+  3
+),
+(
+  'Vegetarian Buddha Bowl',
+  'Healthy and colorful bowl with a variety of vegetables and grains.',
+  'Quinoa, roasted sweet potatoes, cherry tomatoes, avocado, kale, hummus, tahini dressing',
+  '1. Cook quinoa according to package instructions.\n2. Roast sweet potatoes in the oven.\n3. Assemble the bowl with quinoa, sweet potatoes, tomatoes, sliced avocado, kale, and a dollop of hummus.\n4. Drizzle with tahini dressing.',
+  3,
+  6,
+  1
 );
 
 insert into images (recipe_id, image_url) values (
@@ -217,4 +258,13 @@ insert into images (recipe_id, image_url) values (
 ),
 (
 	3, 'ramen.jpg'
+),
+(
+	4, 'spaghetti_bolognese.jpg'
+),
+(
+	5, 'chicken_stir_fry.jpg'
+),
+(
+	6, 'vegetarian_buddha_bowl.jpg'
 );
