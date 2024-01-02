@@ -6,13 +6,17 @@ require_once __DIR__.'/../exceptions/NotFoundException.php';
 
 
 class RecipeRepository extends Repository {
-    private static array $categoryMapping;
-    private static array $dietMapping;
+    private static ?array $categoryMapping = null;
+    private static ?array $dietMapping = null;
 
     public function __construct() {
         parent::__construct();
-        $this->getDietType();
-        $this->getCategories();
+        if (is_null(self::$dietMapping)) {
+            $this->getDietType();
+        }
+        if (is_null(self::$categoryMapping)) {
+            $this->getCategories();
+        }
     }
 
     public function getRecipe(int $recipe_id): Recipe {
@@ -24,8 +28,8 @@ class RecipeRepository extends Repository {
         $query->execute();
         $recipe = $query->fetch(PDO::FETCH_ASSOC);
 
-        if ($recipe == false ) {
-            new NotFoundException("Recipe with id: ".$recipe_id." not found");
+        if ($recipe === false ) {
+            throw new NotFoundException("Recipe with id: ".$recipe_id." not found");
         }
         $recipe = new Recipe(
             $recipe['name'],
@@ -103,14 +107,14 @@ class RecipeRepository extends Repository {
     public function getRecipesByKeyword(string $searchString, ?string $diet, ?string $category) {
         $base_query = 'select recipe_id, name, image_url from recipes natural join images where name ilike :search';
         if (!is_null($category)) {
-            $id = $this->keyExistsInMapping($category, self::$categoryMapping);
+            $id = self::keyExistsInMapping($category, self::$categoryMapping);
             if (!is_null($id)) {
                 $base_query = $base_query.' and food_category_id='.$id;
             }
         }
 
         if (!is_null($diet)) {
-            $d_id = $this->keyExistsInMapping($diet, self::$dietMapping);
+            $d_id = self::keyExistsInMapping($diet, self::$dietMapping);
             if (!is_null($d_id)) {
                 $base_query = $base_query.' and diet_type_id='.$d_id;
             }
@@ -152,7 +156,7 @@ class RecipeRepository extends Repository {
         return $diet_type;
     }
 
-    private function keyExistsInMapping(string $key, array $mapping): ?int {
+    public static function keyExistsInMapping(string $key, array $mapping): ?int {
         if (array_key_exists($key, $mapping)) {
             return $mapping[$key];
         }

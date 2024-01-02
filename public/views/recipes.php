@@ -9,6 +9,8 @@
         rel="stylesheet">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <script type="text/javascript" src="./public/js/search.js" defer></script>
+    <script type="text/javascript" src="./public/js/taskbar.js" defer></script>
+
     <title>Recipes</title>
     <style>
         .dropdown {
@@ -48,15 +50,15 @@
     <div class="taskbar">
         <img class="logo" alt="logo" src="/public/img/food_corner.png">
         <div class="taskbar-buttons-container">
-            <div class="taskbar-text-icon">
+            <div class="taskbar-text-icon" id='home-taskbar'>
                 <img class="icon" alt="Home" src="/public/assets/icons/home.png">
                 <p class="text">Home</p>
             </div>
-            <div class="taskbar-text-icon">
+            <div class="taskbar-text-icon" id='liked-taskbar'>
                 <img class="icon" alt="Liked recipes" src="/public/assets/icons/favorite.png">
                 <p class="text">Liked</p>
             </div>
-            <div class="taskbar-text-icon">
+            <div class="taskbar-text-icon" id='add-taskbar'>
                 <img class="icon" alt="Add recipe" src="/public/assets/icons/add.png">
                 <p class="text">Add</p>
             </div>
@@ -68,7 +70,7 @@
             <h1>Recipes</h1>
         </div>
         <div class="search-bar-wrapper">
-            <input class="search-bar" type="text" placeholder="Search">
+            <input class="search-bar" type="text" placeholder="Search" id="search-bar">
         </div>
         <div class="buttons-container">
             <!-- <button id="category-button">

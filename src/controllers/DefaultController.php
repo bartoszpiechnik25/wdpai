@@ -9,13 +9,27 @@ class DefaultController extends AppController{
         $this->render('login');
     }
     public function recipe() {
-        $this->render('recipe');
+        if (isset($_GET['id'])) {
+            try {
+                $recipe_repository = new RecipeRepository();
+                $recipe = $recipe_repository->getRecipe((int)$_GET['id']);
+                $this->render('recipe', ['recipe' => $recipe]);
+            } catch (Exception $e) {
+                $this->render('404', ['message' => $e->getMessage()]);
+            }
+        } else {
+            $this->render('404');
+        }
     }
     public function liked() {
         $this->render('liked');
     }
     public function add() {
-        $this->render('add');
+        $recipe_repository = new RecipeRepository();
+        $this->render('add', [
+            'categories' => $recipe_repository->getCategories(),
+            'diets' => $recipe_repository->getDietType()
+        ]);
     }
     public function register() {
         $this->render('register');

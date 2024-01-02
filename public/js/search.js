@@ -1,4 +1,4 @@
-const search = document.querySelector('input[placeholder="Search"]');
+const search = document.getElementById('search-bar');
 
 const findButton = document.getElementById('findButton');
 const clearButton = document.getElementById('clear-filters');
