@@ -7,7 +7,7 @@
 *.vsix
 .idea/
 
-public/uploads/
+# public/uploads/
 
 config.php
 .env

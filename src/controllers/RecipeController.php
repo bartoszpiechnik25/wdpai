@@ -27,20 +27,28 @@ class RecipeController extends AppController {
                 $filepath
             );
 
-            $recipe = new Recipe(
-                $_POST['name'],
-                $_POST['description'],
-                $_POST['ingredients'],
-                $_POST['method'],
-                2,
-                5,
-                $_FILES['file']['name'],
-                1
-            );
+            $category_id = RecipeRepository::keyExistsInMapping($_POST['selectedCategory'], RecipeRepository::getCategoriesArray());
+            $diet_id = RecipeRepository::keyExistsInMapping($_POST['selectedDiet'], RecipeRepository::getDietArray());
             
-            $this->recipeRepository->addRecipe($recipe);
+            if (is_null($category_id)) {
+                $this->messages[] = "No such category";
+            } else if (is_null($diet_id)) {
+                $this->messages[] = "No such diet";
+            } else {
+                $recipe = new Recipe(
+                    $_POST['name'],
+                    $_POST['description'],
+                    $_POST['ingredients'],
+                    $_POST['method'],
+                    $category_id,
+                    $diet_id,
+                    $_FILES['file']['name'],
+                    1
+                );
+                $this->recipeRepository->addRecipe($recipe);
 
-            return $this->render('recipes', ['recipe' => $recipe]);
+                return $this->render('recipes', ['recipes' => $this->recipeRepository->getRecipes()]);
+            }   
         }
         $this->render('add', ['messages' => $this->messages]);
     }

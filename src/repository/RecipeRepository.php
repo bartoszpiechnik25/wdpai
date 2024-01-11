@@ -97,7 +97,7 @@ class RecipeRepository extends Repository {
         $insert_image = $connection->prepare(
             'insert into images (
                 recipe_id,
-                bucket_url
+                image_url
             ) values (?, ?)'
         );
         $insert_image->execute([$recipe_id, $recipe->getImageUrl()]);
@@ -154,6 +154,14 @@ class RecipeRepository extends Repository {
         }
         RecipeRepository::$dietMapping = $diet_type;
         return $diet_type;
+    }
+
+    public static function getCategoriesArray() {
+        return self::$categoryMapping;
+    }
+
+    public static function getDietArray() {
+        return self::$dietMapping;
     }
 
     public static function keyExistsInMapping(string $key, array $mapping): ?int {

@@ -9,6 +9,7 @@
         rel="stylesheet">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <script type="text/javascript" src="./public/js/taskbar.js" defer></script>
+    <script type="text/javascript" src="./public/js/add_recipe.js" defer></script>
     <title>Add recipe</title>
     <style>
         .dropdown {
@@ -44,6 +45,7 @@
             display: block;
         }
     </style>
+    <script></script>
 </head>
 
 <body>
@@ -120,6 +122,8 @@
                     </div>
                 </div>
             </div>
+            <input type="hidden" id="selectedDiet" name="selectedDiet" value="">
+            <input type="hidden" id="selectedCategory" name="selectedCategory" value="">
 
             <div class="add-button">
                 <button type="submit">

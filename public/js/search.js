@@ -38,7 +38,6 @@ function searchRecipes() {
 
 function loadRecipes(recipes) {
     recipes.forEach(element => {
-
         createRecipe(element);
     });
 }
