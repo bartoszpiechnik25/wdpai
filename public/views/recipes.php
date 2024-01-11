@@ -119,6 +119,7 @@
         </div>
         <div class="recipes-container">
             <?php foreach ($recipes as $recipe): ?>
+                <a href='/recipe?id=<?= $recipe->getId(); ?>'>
                 <div class="recipe">
                     <div class="image" style="background-image: url('public/uploads/<?=$recipe->getImageUrl(); ?>');"></div>
                     <div class="recipe-text-icon">
@@ -126,6 +127,7 @@
                         <img class="button-icon" src="/public/assets/icons/favorite.png" />
                     </div>
                 </div>
+                </a>
             <?php endforeach; ?>
         </div>
     </div>

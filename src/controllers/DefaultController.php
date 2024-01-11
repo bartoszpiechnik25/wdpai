@@ -13,6 +13,7 @@ class DefaultController extends AppController{
             try {
                 $recipe_repository = new RecipeRepository();
                 $recipe = $recipe_repository->getRecipe((int)$_GET['id']);
+                $recipe->setId((int)$_GET['id']);
                 $this->render('recipe', ['recipe' => $recipe]);
             } catch (Exception $e) {
                 $this->render('404', ['message' => $e->getMessage()]);

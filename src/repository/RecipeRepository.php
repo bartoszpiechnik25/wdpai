@@ -52,7 +52,7 @@ class RecipeRepository extends Repository {
         $recipes = $query->fetchAll(PDO::FETCH_ASSOC);
 
         foreach ($recipes as $recipe) {
-            $result[] = new Recipe(
+            $r = new Recipe(
                 $recipe['name'],
                 $recipe['description'],
                 $recipe['ingredients'],
@@ -62,6 +62,8 @@ class RecipeRepository extends Repository {
                 $recipe['image_url'],
                 (int)$recipe['author_id']
             );
+            $r->setId($recipe['recipe_id']);
+            $result[] = $r;
         }
 
         return $result;
