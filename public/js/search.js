@@ -17,9 +17,7 @@ let selectedDiet = null;
 
 function searchRecipes() {
     const requestData = {search: search.value, category: selectedCategory, diet: selectedDiet};
-
-    clearFilters();
-
+    search.value = ""
     fetch("/search", {
         method: "POST",
         headers: {
@@ -43,12 +41,14 @@ function loadRecipes(recipes) {
 }
 
 function createRecipe(recipe) {
+    console.log(recipe)
     const template = document.querySelector("#recipe-template");
 
     const clone = template.content.cloneNode(true);
 
     clone.querySelector('.image').style.backgroundImage = `url('public/uploads/${recipe.image_url}')`;
     clone.querySelector('.recipe-text').textContent = recipe.name;
+    clone.querySelector('a').href = `/recipe?id=${recipe.recipe_id}`;
 
     recipesContainer.appendChild(clone);
 }
@@ -56,6 +56,9 @@ function createRecipe(recipe) {
 function clearFilters() {
     selectedCategory = null;
     selectedDiet = null;
+    
+    console.log(selectedCategory, selectedCategory)
+    searchRecipes();
 }
 
 function handleDropdownButtonClick(event) {
@@ -65,7 +68,7 @@ function handleDropdownButtonClick(event) {
 categoryButton.addEventListener('click', handleDropdownButtonClick);
 dietButton.addEventListener('click', handleDropdownButtonClick);
 
-clearButton.addEventListener('click', function(){clearFilters();});
+clearButton.addEventListener('click', clearFilters);
 
 search.addEventListener('keyup', function(event) {
     if (event.key === 'Enter') {

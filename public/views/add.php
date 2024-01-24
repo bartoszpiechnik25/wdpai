@@ -64,6 +64,10 @@
                 <img class="icon" alt="Add recipe" src="/public/assets/icons/add.png">
                 <p class="text">Add</p>
             </div>
+            <div class="taskbar-text-icon" id='logout-taskbar'>
+                <img class="icon" alt="Logout" src="/public/assets/icons/logout.png"> <!-- Update the src with your logout icon -->
+                <a href="/logout"><p class="text">Logout</p></a>
+            </div>
         </div>
     </div>
     <div class="content">

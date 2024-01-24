@@ -31,6 +31,10 @@ create sequence users_user_id_seq;
 
 alter sequence users_user_id_seq owner to postgres;
 
+create sequence dislikedrecipes_disliked_recipe_id_seq;
+
+alter sequence dislikedrecipes_disliked_recipe_id_seq owner to postgres;
+
 create table diettype
 (
 	diet_type_id integer default nextval('diettype_diet_type_id_seq'::regclass) not null
@@ -124,6 +128,18 @@ create table likedrecipes
 );
 
 alter table likedrecipes owner to postgres;
+
+create table dislikedrecipes
+(
+  disliked_recipe_id integer default nextval('dislikedrecipes_disliked_recipe_id_seq'::regclass) not null
+    primary key,
+  user_id integer 
+    references users,
+  recipe_id integer
+    references recipes
+);
+
+alter table dislikedrecipes owner to postgres;
 
 create table userprofile
 (
@@ -268,3 +284,24 @@ insert into images (recipe_id, image_url) values (
 (
 	6, 'vegetarian_buddha_bowl.jpg'
 );
+
+create view most_liked_recipes as
+select r.name, count(lr.recipe_id) as "num_likes"
+from likedrecipes lr
+         join public.recipes r on lr.recipe_id = r.recipe_id
+group by lr.recipe_id, r.name
+order by count(lr.recipe_id) desc;
+
+create or replace procedure like_recipe(p_recipe_id int, p_user_id int)
+language plpgsql
+as $$
+    declare
+        already_liked int;
+    begin
+        select user_id into already_liked from likedrecipes where recipe_id=p_recipe_id and user_id=p_user_id;
+        if already_liked is null then
+            insert into likedrecipes (user_id, recipe_id) values (p_user_id, p_recipe_id);
+        end if;
+end;
+$$;
+

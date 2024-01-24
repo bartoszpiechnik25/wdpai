@@ -25,7 +25,7 @@ class SecurityController extends AppController {
         try {
             $user = $userRepository->getUser($username);
 
-            if ($user->getPassword() !== $password) {   
+            if (!password_verify($password, $user->getPassword())) {   
                 $messages[] = 'Invalid password!';
             }
 
@@ -33,15 +33,23 @@ class SecurityController extends AppController {
             $messages[] = $exception->getMessage();
         }
 
-
         if (empty($messages)) {
             //redirect to recipes.php
+            $user_id = $userRepository->getUserId($username);
+            $_SESSION["logged_user"] = $user_id;
             $url = "http://$_SERVER[HTTP_HOST]";
             header("Location: {$url}/recipes");
         } else {
             //render login.php with messages
             $this->render('login', ['messages' => $messages]);
         }
+    }
+
+    public function logout() {
+        session_unset();
+        session_destroy();
+        $url = "http://$_SERVER[HTTP_HOST]";
+        header("Location: {$url}/login");
     }
 
     public function register() {
@@ -66,13 +74,13 @@ class SecurityController extends AppController {
         if ($repository->emailExists($email)) {
             $messages[] = 'Account with this email: '.$email.' already exists!';
         }
+        $password = password_hash($password, PASSWORD_BCRYPT);
         $newUser = new UserProfile($username, $password, $email, $role_id, $name, $surname, $phone_number);
+        $repository->addUser($newUser);
         // var_dump($newUser);
         // die();
 
         if (empty($messages)) {
-            $newUser = new UserProfile($username, $password, $email, $role_id, $name, $surname, $phone_number);
-            $repository->addUser($newUser);
             $url = "http://$_SERVER[HTTP_HOST]";
             header("Location: {$url}/login");
         } else {

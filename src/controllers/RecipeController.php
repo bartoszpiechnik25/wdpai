@@ -54,14 +54,19 @@ class RecipeController extends AppController {
     }
 
     public function recipes() {
-        $recipes = $this->recipeRepository->getRecipes();
-        $categories = $this->recipeRepository->getCategories();
-        $diets = $this->recipeRepository->getDietType();
-        $this->render('recipes', [
-            'recipes' => $recipes,
-            'categories' => $categories,
-            'diets' => $diets
-        ]);
+        if (!isset($_SESSION['logged_user'])) {
+            $url = "http://$_SERVER[HTTP_HOST]";
+            header("Location: {$url}/login");
+        } else {
+            $recipes = $this->recipeRepository->getRecipes();
+            $categories = $this->recipeRepository->getCategories();
+            $diets = $this->recipeRepository->getDietType();
+            $this->render('recipes', [
+                'recipes' => $recipes,
+                'categories' => $categories,
+                'diets' => $diets
+            ]);
+        }
     }
 
     private function validate(array $file) {

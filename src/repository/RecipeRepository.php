@@ -71,39 +71,99 @@ class RecipeRepository extends Repository {
 
     public function addRecipe(Recipe $recipe): void {
         $connection = $this->database->connect();
-        $insert = $connection->prepare(
-            'insert into recipes (
-                name,
-                description,
-                ingredients,
-                method,
-                author_id,
-                food_category_id,
-                diet_type_id
-            ) values (?, ?, ?, ?, ?, ?, ?)'
+        try{
+            $connection->beginTransaction();
+            $insert = $connection->prepare(
+                'insert into recipes (
+                    name,
+                    description,
+                    ingredients,
+                    method,
+                    author_id,
+                    food_category_id,
+                    diet_type_id
+                ) values (?, ?, ?, ?, ?, ?, ?)'
+            );
+    
+            $insert->execute([
+                $recipe->getName(),
+                $recipe->getDescription(),
+                $recipe->getIngredients(),
+                $recipe->getMethod(),
+                $recipe->getAuthorId(),
+                $recipe->getCategoryId(),
+                $recipe->getDietTypeId(),
+            ]);
+    
+            $recipe_id = (int)$connection->lastInsertId();
+            $recipe->setId($recipe_id);
+    
+            $insert_image = $connection->prepare(
+                'insert into images (
+                    recipe_id,
+                    image_url
+                ) values (?, ?)'
+            );
+            $insert_image->execute([$recipe_id, $recipe->getImageUrl()]);
+            $connection->commit();
+        } catch (Exception $e) {
+            $connection->rollBack();
+        }   
+    }
+
+    public function getLikedRecipes(int $user_id) {
+        $stmt = $this->database->connect()->prepare(
+            "select * from likedrecipes natural join recipes natural join images where user_id=:id"
         );
+        $stmt->bindParam(':id', $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+        $recipes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $result = [];
+        foreach ($recipes as $recipe) {
+            $r = new Recipe(
+                $recipe['name'],
+                $recipe['description'],
+                $recipe['ingredients'],
+                $recipe['method'],
+                (int)$recipe['food_category_id'],
+                (int)$recipe['diet_type_id'],
+                $recipe['image_url'],
+                (int)$recipe['author_id']
+            );
+            $r->setId($recipe['recipe_id']);
+            $result[] = $r;
+        }
+        return $result;
+    }
 
-        $insert->execute([
-            $recipe->getName(),
-            $recipe->getDescription(),
-            $recipe->getIngredients(),
-            $recipe->getMethod(),
-            $recipe->getAuthorId(),
-            $recipe->getCategoryId(),
-            $recipe->getDietTypeId(),
-        ]);
+    public function getLikes(int $recipe_id) {
+        $likes_stmt = $this->database->connect()->prepare("select count(recipe_id) as likes from likedrecipes where recipe_id=:id group by recipe_id");
+        $dislikes_stmt = $this->database->connect()->prepare("select count(recipe_id) as dislikes from dislikedrecipes where recipe_id=:id group by recipe_id");
 
-        $recipe_id = (int)$connection->lastInsertId();
-        $recipe->setId($recipe_id);
+        $likes_stmt->bindParam(':id', $recipe_id, PDO::PARAM_INT);
+        $dislikes_stmt->bindParam(':id', $recipe_id, PDO::PARAM_INT);
 
-        $insert_image = $connection->prepare(
-            'insert into images (
-                recipe_id,
-                image_url
-            ) values (?, ?)'
-        );
-        $insert_image->execute([$recipe_id, $recipe->getImageUrl()]);
+        $likes_stmt->execute();
+        $likes = $likes_stmt->fetch(PDO::FETCH_ASSOC);
 
+        $dislikes_stmt->execute();
+        $dislikes = $dislikes_stmt->fetch(PDO::FETCH_ASSOC);
+
+        $request_data = [];
+
+        if (empty($dislikes)) {
+            $request_data['dislikes'] = 0;
+        } else {
+            $request_data['dislikes'] = $dislikes['dislikes'];
+        }
+
+        if (empty($likes)) {
+            $request_data['likes'] = 0;
+        } else {
+            $request_data['likes'] = $likes['likes'];
+        }
+
+        return $request_data;
     }
 
     public function getRecipesByKeyword(string $searchString, ?string $diet, ?string $category) {

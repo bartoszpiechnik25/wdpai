@@ -15,7 +15,9 @@
     <style>
         .dropdown {
             position: relative;
-            display: inline-block;
+            display: flex;
+            margin-bottom: 5%;
+            flex: 1;
         }
 
         .dropdown-content {
@@ -62,6 +64,10 @@
                 <img class="icon" alt="Add recipe" src="/public/assets/icons/add.png">
                 <p class="text">Add</p>
             </div>
+            <div class="taskbar-text-icon" id='logout-taskbar'>
+                <img class="icon" alt="Logout" src="/public/assets/icons/logout.png"> <!-- Update the src with your logout icon -->
+                <a href="/logout"><p class="text">Logout</p></a>
+            </div>
         </div>
     </div>
     <div class="content">
@@ -91,10 +97,12 @@
                     ?>
                 </div>
             </div>
-            <button>
-                <p class="button-text">Sort by</p>
-                <img alt="Vector" src="/public/assets/icons/expand_circle_down.svg">
-            </button>
+            <div class="dropdown">
+                <button>
+                    <p class="button-text">Sort by</p>
+                    <img alt="Vector" src="/public/assets/icons/expand_circle_down.svg">
+                </button>
+            </div>
             <div class="dropdown">
                 <button id="diet-button">
                     <p class="button-text">Diet</p>
@@ -109,24 +117,28 @@
                     ?>
                 </div>
             </div>
-            <button id="clear-filters">
-                <p class="button-text">Clear all filters</p>
-            </button>
-            <button id="findButton">
-                <p class="button-text"> Find </p>
-                <img class="button-icon" alt="Search" src="/public/assets/icons/search.png">
-            </button>
+            <div class="dropdown">
+                <button id="clear-filters">
+                    <p class="button-text">Clear all filters</p>
+                </button>
+            </div>
+            <div class="dropdown">
+                <button id="findButton">
+                    <p class="button-text"> Find </p>
+                    <img class="button-icon" alt="Search" src="/public/assets/icons/search.png">
+                </button>
+            </div>
         </div>
         <div class="recipes-container">
             <?php foreach ($recipes as $recipe): ?>
                 <a href='/recipe?id=<?= $recipe->getId(); ?>'>
-                <div class="recipe">
-                    <div class="image" style="background-image: url('public/uploads/<?=$recipe->getImageUrl(); ?>');"></div>
-                    <div class="recipe-text-icon">
-                        <div class="recipe-text"><?= $recipe->getName(); ?></div>
-                        <img class="button-icon" src="/public/assets/icons/favorite.png" />
+                    <div class="recipe">
+                        <div class="image" style="background-image: url('public/uploads/<?=$recipe->getImageUrl(); ?>');"></div>
+                        <div class="recipe-text-icon">
+                            <div class="recipe-text"><?= $recipe->getName(); ?></div>
+                            <img class="button-icon" src="/public/assets/icons/favorite.png" />
+                        </div>
                     </div>
-                </div>
                 </a>
             <?php endforeach; ?>
         </div>
@@ -136,13 +148,15 @@
 </body>
 
 <template id="recipe-template">
-    <div class="recipe">
-        <div class="image" style="background-image: url('');"></div>
-        <div class="recipe-text-icon">
-            <div class="recipe-text"></div>
-            <img class="button-icon" src="/public/assets/icons/favorite.png" />
+    <a href="">
+        <div class="recipe">
+            <div class="image" style="background-image: url('');"></div>
+            <div class="recipe-text-icon">
+                <div class="recipe-text"></div>
+                <img class="button-icon" src="/public/assets/icons/favorite.png" />
+            </div>
         </div>
-    </div>
+    </a>
 </template>
 
 </html>

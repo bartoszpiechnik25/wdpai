@@ -20,7 +20,11 @@ class Router {
         $action = explode("/", $url)[0];
 
         if (!array_key_exists($action, self::$routes)) {
-            die("Wrong url");
+            // die("Wrong url");
+            //display 404 from 404.php
+            $controller = new DefaultController();
+            $controller->notFound();
+            die();
         }
 
         $controller = self::$routes[$action];

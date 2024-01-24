@@ -127,9 +127,8 @@ p {
 
 .buttons-container {
     width: 80%;
-    display: inline-flex;
+    display: flex;
     flex-direction: row;
-    flex-wrap:nowrap;
     align-items: center;
     justify-content: space-between;
     left: 10%;
@@ -171,21 +170,8 @@ button img {
     justify-content: center;
 
 }
-
-.dropdown {
-    margin-bottom: 5%;
-    min-width: 5rem;
-    display: flex;
-    position: relative;
-    /* flex-grow: 1; */
-}
-
 .dropdown-content {
     font-family: "Roboto-Medium", Helvetica;        
-}
-
-button + button, .dropdown + button, button + .dropdown {
-    margin-left: 5%;
 }
 
 .recipe {
@@ -337,7 +323,7 @@ button + button, .dropdown + button, button + .dropdown {
 }
 
 .dropdown + .dropdown {
-    margin-left: 5rem;
+    margin-left: 2em;
 }
 
 .add-button {
@@ -385,8 +371,15 @@ h2 + p, h2 + ul {
 
 }
 
+a, a:visited, a:hover, a:active {
+    color: inherit;
+}
 
-@media (max-width: 700px) {
+a {
+    text-decoration: none !important;
+}
+
+@media (max-width: 790px) {
     .icon {
         width: 1.5em;
         height: 1.5em;

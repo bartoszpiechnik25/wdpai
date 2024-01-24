@@ -23,31 +23,54 @@ class UserRepository extends Repository {
         return new User($user['username'], $user['password_hash'], $user['email'], $user['role_id']);
     }
 
+    public function getUserId(string $username): int {
+        $stmt = $this->database->connect()->prepare(
+            'select user_id from users where username = :username'
+        );
+        $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $user_id = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user_id == false) {
+            throw new NotFoundException("User not found");
+        }
+
+        return (int)$user_id['user_id'];
+    }
+
     public function addUser(UserProfile $user): void {
-        $connection = $this->database->connect();
-        $stmt = $connection->prepare(
-            'INSERT INTO users (username, password_hash, email, role_id) 
-            VALUES (?, ?, ?, ?)'
-        );
-        $stmt->execute([
-            $user->getUsername(),
-            $user->getPassword(),
-            $user->getEmail(),
-            $user->getRole_id(),
-        ]);
-    
-        $user_id = (int)$connection->lastInsertId();
+        try {
+            $connection = $this->database->connect();
+            $connection->beginTransaction();
+            $stmt = $connection->prepare(
+                'INSERT INTO users (username, password_hash, email, role_id) 
+                VALUES (?, ?, ?, ?)'
+            );
+            $stmt->execute([
+                $user->getUsername(),
+                $user->getPassword(),
+                $user->getEmail(),
+                $user->getRole_id(),
+            ]);
         
-        $stmt = $connection->prepare(
-            'INSERT INTO userprofile (user_id, name, surname, phone_number)
-            VALUES (?, ?, ?, ?)'
-        );
-        $stmt->execute([
-            $user_id,
-            $user->getName(),
-            $user->getSurname(),
-            $user->getPhone_number(),
-        ]);
+            $user_id = (int)$connection->lastInsertId();
+            
+            $stmt = $connection->prepare(
+                'INSERT INTO userprofile (user_id, name, surname, phone_number)
+                VALUES (?, ?, ?, ?)'
+            );
+            $stmt->execute([
+                $user_id,
+                $user->getName(),
+                $user->getSurname(),
+                $user->getPhone_number(),
+            ]);
+            $connection->commit();
+        } catch (PDOException $e) {
+            $connection->rollBack();
+            die($e->getMessage());
+        }
 
     }
 

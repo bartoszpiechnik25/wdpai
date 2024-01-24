@@ -28,11 +28,15 @@
                 <input class="input-bar" type="text" placeholder="username" name="username">
                 <input class="input-bar" type="password" placeholder="password" name="password">
                 <button class="login-button" type="submit">Login</button>
-                <button class="login-button">With Facebook</button>
+                <button class="login-button" id="register-button" type="button">Register</button>
             </form>
         </div>
     </div>
-
+    <script>
+        document.getElementById('register-button').addEventListener('click', function() {
+            window.location.href = '/register';
+        });
+    </script>
 
 </body>
 
