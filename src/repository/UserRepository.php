@@ -7,6 +7,16 @@ require_once __DIR__.'/../exceptions/NotFoundException.php';
 
 class UserRepository extends Repository {
 
+    public function __construct()
+    {
+        parent::__construct();
+        //generate password for admin with password_hash
+        $password = password_hash(ADMINPASSWORD, PASSWORD_BCRYPT);
+        $stmt = $this->database->connect()->prepare("update users set password_hash=:passwd where username='admin'");
+        $stmt->bindParam(':passwd', $password, PDO::PARAM_STR);
+        $stmt->execute();
+    }
+
     public function getUser(string $username): User {
         $stmt = $this->database->connect()->prepare(
             'select * from users where username = :username'

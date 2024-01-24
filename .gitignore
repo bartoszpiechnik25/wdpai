@@ -9,5 +9,5 @@
 
 # public/uploads/
 
-config.php
-.env
+# config.php
+# .env

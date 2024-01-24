@@ -198,7 +198,7 @@ insert into users (username, email, password_hash, role_id) values
 ('stachu_jones', 'stachu@gmali.com', '1234', 1),
 ('john_doe', 'john@example.com', '1234', 1),
 ('jane_smith', 'jane@example.com', '1234', 1),
-('admin_user', 'admin@example.com', '1234', 2);
+('admin', 'admin@example.com', 'admin', 2);
 
 insert into userprofile (name, surname, phone_number, user_id) 
 values 
@@ -292,8 +292,8 @@ from likedrecipes lr
 group by lr.recipe_id, r.name
 order by count(lr.recipe_id) desc;
 
-create or replace procedure like_recipe(p_recipe_id int, p_user_id int)
-language plpgsql
+create procedure like_recipe(IN p_recipe_id integer, IN p_user_id integer)
+	language plpgsql
 as $$
     declare
         already_liked int;
@@ -303,5 +303,58 @@ as $$
             insert into likedrecipes (user_id, recipe_id) values (p_user_id, p_recipe_id);
         end if;
 end;
+    $$;
+
+alter procedure like_recipe(integer, integer) owner to postgres;
+
+create function move_from_disliked_to_liked() returns trigger
+	language plpgsql
+as $$
+begin
+    if exists(select 1 from dislikedrecipes where recipe_id=NEW.recipe_id and user_id=NEW.user_id) then
+        delete from dislikedrecipes where user_id=NEW.user_id and recipe_id=NEW.recipe_id;
+    end if;
+    return new;
+end;
 $$;
+
+alter function move_from_disliked_to_liked() owner to postgres;
+
+create trigger before_insert_likedrecipes
+	before insert
+	on likedrecipes
+	for each row
+	execute procedure move_from_disliked_to_liked();
+
+create function move_from_liked_to_disliked() returns trigger
+	language plpgsql
+as $$
+begin
+    if exists(select 1 from likedrecipes where recipe_id=NEW.recipe_id and user_id=NEW.user_id) then
+        delete from likedrecipes where user_id=NEW.user_id and recipe_id=NEW.recipe_id;
+    end if;
+    return new;
+end;
+$$;
+
+alter function move_from_liked_to_disliked() owner to postgres;
+
+create trigger before_insert_dislikedrecipes
+	before insert
+	on dislikedrecipes
+	for each row
+	execute procedure move_from_liked_to_disliked();
+
+create procedure dislike_recipe(IN p_recipe_id integer, IN p_user_id integer)
+	language plpgsql
+as $$
+    declare
+        already_disliked int;
+    begin
+        select user_id into already_disliked from dislikedrecipes where recipe_id=p_recipe_id and user_id=p_user_id;
+        if already_disliked is null then
+            insert into dislikedrecipes (user_id, recipe_id) values (p_user_id, p_recipe_id);
+        end if;
+end;
+    $$;
 
